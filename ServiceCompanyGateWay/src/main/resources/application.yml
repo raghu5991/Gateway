@@ -1,0 +1,35 @@
+server:
+   port: 8888
+
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: developmentModule
+        uri: http://localhost:1111/
+        predicates:
+        - Path=/devcontroller/**
+        filters:
+        - AddRequestHeader=first-request, first-request-header
+        - AddResponseHeader=first-response, first-response-header
+      - id: hrModule
+        uri: http://localhost:2222/
+        predicates:
+        - Path=/hrcontroller/**
+        filters:
+        - AddRequestHeader=second-request, second-request-header
+        - AddResponseHeader=second-response, second-response-header
+      - id: testerModule
+        uri: http://localhost:3333/
+        predicates:
+        - Path=/testercontroller/**
+        filters:
+        - AddRequestHeader=first-request, first-request-header
+        - AddResponseHeader=first-response, first-response-header
+      - id: baModule
+        uri: http://localhost:4444/
+        predicates:
+        - Path=/bacontroller/**
+        filters:
+        - AddRequestHeader=first-request, first-request-header
+        - AddResponseHeader=first-response, first-response-header
